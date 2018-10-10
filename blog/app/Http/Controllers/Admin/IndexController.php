@@ -8,6 +8,7 @@ namespace App\Http\Controllers\Admin;
 //对validator的命名空间进行修改
 use Illuminate\Support\Facades\Validator;
 
+
 //使用模型
 use App\Http\Model\User;
 //使用crypt加密
@@ -15,8 +16,8 @@ use Illuminate\Support\Facades\Crypt;
 
 use Illuminate\Support\Facades\Input;
 
-use Illuminate\Http\Request;
-use App\Http\Requests;
+use Illuminate\Http\Requests;
+use App\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Psy\TabCompletion\Matcher\CommandsMatcher;
 
@@ -59,28 +60,24 @@ class IndexController extends CommonController
                 $_password=$user->user_pass;
                 if($_POST['password_o']==$_password)
                 {
-//                    $tempstr=Crypt::encrypt($_POST['password']);
-//                    $user->user_pass=$tempstr;
-                    $user->user_pass=$_POST['password'];
-                    echo "<h1>ok！</h1>";
-                    $user->save();
-                    print_r($user->save());
+                    $tempstr=Crypt::encrypt($_POST['password']);
 
-//                    if($user->user_pass=$_password)
-//                    {
-//                        echo "<h1>密码重置成功！</h1>";
-//                        echo "<h1>$_password</h1>";
-//                    }
+                    $user->user_pass=$tempstr;
+                    $user->save();
+                    $tmpdestr=Crypt::decrypt($user->user_pass);
+//                    $user->user_pass=$_POST['password'];
+                    echo "<h1>ok！</h1>";
+                    echo "<h1>$user->user_pass</h1>";
+                    echo "<h1>$tmpdestr</h1>";
+
                 }
                 else {
                     return back()->with('errors','原密码错误！');
 
                 }
-                //echo "<h1>$_password</h1>";
             }
             else {
-//                echo '<h1>no!</h1>';
-//                var_dump($validator->errors()->all());
+
                 return back()->withErrors($validator);
 
             }
