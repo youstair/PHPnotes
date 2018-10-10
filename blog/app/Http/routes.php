@@ -20,6 +20,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::any('admin/login', 'Admin\LoginController@login');
 //    Route::any('admin/crypt', 'Admin\LoginController@crypt');
     Route::get('admin/code', 'Admin\LoginController@code');
+    Route::any('past', 'Admin\IndexController@test1');
 });
 
 Route::group(['middleware' => ['web','admin.login'],'prefix'=>'admin','namespace'=>'Admin'], function () {

@@ -21,10 +21,11 @@ class LoginController extends CommonController
             if(strtoupper($_POST['code'])!=$_code) return back()->with('msg','验证码错误');
 //            else echo 'ok!';
             $user=User::first();
-            if($user->user_name!=$_POST['user_name']||Crypt::decrypt($user->user_pass)!=$_POST['user_password'])
-            {
-                return back()->with('msg','用户名或密码错误');
-            }
+            if($user->user_name!=$_POST['user_name']||$user->user_pass!=$_POST['user_password']) return back()->with('msg','用户名或密码错误');
+//            if($user->user_name!=$_POST['user_name']||Crypt::decrypt($user->user_pass)!=$_POST['user_password'])
+//            {
+//                return back()->with('msg','用户名或密码错误');
+//            }
             session(['user'=>$user]);
             //print_r(session('user'));
             return redirect('admin/index');
