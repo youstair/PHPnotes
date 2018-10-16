@@ -21,11 +21,11 @@ class LoginController extends CommonController
             if(strtoupper($_POST['code'])!=$_code) return back()->with('msg','验证码错误');
 //            else echo 'ok!';
             $user=User::first();
-            if($user->user_name!=$_POST['user_name']||$user->user_pass!=$_POST['user_password']) return back()->with('msg','用户名或密码错误');
-//            if($user->user_name!=$_POST['user_name']||Crypt::decrypt($user->user_pass)!=$_POST['user_password'])
-//            {
-//                return back()->with('msg','用户名或密码错误');
-//            }
+//            if($user->user_name!=$_POST['user_name']||$user->user_pass!=$_POST['user_password']) return back()->with('msg','用户名或密码错误');
+            if($user->user_name!=$_POST['user_name']||Crypt::decrypt($user->user_pass)!=$_POST['user_password'])
+            {
+                return back()->with('msg','用户名或密码错误');
+            }
             session(['user'=>$user]);
             //print_r(session('user'));
             return redirect('admin/index');
@@ -47,19 +47,11 @@ class LoginController extends CommonController
         $code = new \Code;
         $code->make();
     }
-
+    //获取验证码
     public function getcode()
     {
         $code = new \Code;
         echo $code->get();
-    }
-
-    public function crypt()
-    {
-        $str='123456';
-        $str_p='eyJpdiI6IjFMdjdZdzdlbllBQnNuekUzUUJOalE9PSIsInZhbHVlIjoidVJIZHh0Wk13MU1NdGlDQTVsTXRMUT09IiwibWFjIjoiMWU0MDdkMjk1NGU1ZTlmYjMwY2Y1YTA5YzY5ZjZjM2YwOWE3NDM0NTRkZWI3ZGQ3MWY2NzIxNzYwMzE5ZDY1ZiJ9';
-
-        echo Crypt::decrypt($str_p);
     }
 
     public function quit()
