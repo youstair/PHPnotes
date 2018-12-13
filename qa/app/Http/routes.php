@@ -33,7 +33,7 @@ Route::group(['middleware' => ['web','admin.login'],'prefix'=>'admin','namespace
     Route::any('home', 'IndexController@home');
     Route::post('cate/changeorder','CategoryController@changeOrder');
 
-    Route::any('webservice/ask/{question}', 'WebServiceController@ask');
+    Route::any('WebService/ask/{question}', 'WebServiceController@ask');
 
     Route::resource('category', 'CategoryController');
 
@@ -41,8 +41,10 @@ Route::group(['middleware' => ['web','admin.login'],'prefix'=>'admin','namespace
     Route::resource('qalist', 'QaListController');
 
 
-    Route::resource('webservice', 'WebServiceController');
+    Route::resource('WebService', 'WebServiceController');
     Route::resource('ASP_NET', 'ASP_NETController');
     Route::resource('HTML_CSS', 'HTML_CSSController');
     Route::resource('JavaScript', 'JavaScriptController');
+    Route::any('/AnswerList', 'QaListController@AnswerList');
+    Route::any('/AddList', 'QaListController@AddList');
 });

@@ -39,4 +39,21 @@ class QaListController extends CommonController
         echo '</br>';
         var_dump($res);
     }
+    //get.admin/qalist  展示分类列表
+    public function AnswerList()
+    {
+//        $webservices=(new webservice)->tree();
+//        return view('admin.webservice.index')->with('data',$webservices);
+        $data=QaList::paginate(15);
+//        print_r($data->links());
+        return view('QaList.index',compact('data'));
+    }
+    public function AddList()
+    {
+//        $webservices=(new webservice)->tree();
+//        return view('admin.webservice.index')->with('data',$webservices);
+        $data=QaList::paginate(15);
+//        print_r($data->links());
+        return view('QaList.AddList',compact('data'));
+    }
 }

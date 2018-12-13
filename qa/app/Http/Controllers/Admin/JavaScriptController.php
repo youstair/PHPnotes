@@ -103,7 +103,7 @@ class JavaScriptController extends CommonController
 //        $data=JavaScript::where('cate_pid',0)->get();
         return view('JavaScript.edit',compact('field'));
     }
-
+///var/www/html/youstair.com/qa
     public function ask($question)
     {
 
